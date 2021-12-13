@@ -85,6 +85,7 @@ public class Application {
         int[] DAT = new int[10]; //direct address table
         Arrays.fill(DAT,-1);
 
+        //컴퓨터의 숫자와 index 번호를 저장한다
         for(int i=0; i<3; i++){
             DAT[randomNumber.get(i)] = i;
         }
