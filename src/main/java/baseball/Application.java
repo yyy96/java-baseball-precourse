@@ -12,18 +12,21 @@ public class Application {
 
         while(true){
             List<Integer> randomNumber = new ArrayList<>(3);
-
             //1. 컴퓨터가 랜덤 숫자를 정한다
-            randomNumber = startGame();
+            randomNumber = computerPickNumber();
 
             //2. 플레이어가 숫자게임을 시작한다.
-            if(playGame(randomNumber)==1) continue;
-            else break;
+            if(playGame(randomNumber)==1){
+                continue;
+            }
+            else{
+                break;
+            }
         }
 
     }
 
-    public static List<Integer> startGame(){
+    public static List<Integer> computerPickNumber(){
         int cardCnt = 0;
         int[] used = new int[10];
         Arrays.fill(used,0);
