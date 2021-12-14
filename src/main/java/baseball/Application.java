@@ -7,6 +7,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class Application {
+    public static final int INPUT_LENGTH_BOUND =3;
 
     public static void main(String[] args) {
 
@@ -79,13 +80,13 @@ public class Application {
             playerNumber.add(num);
         }
 
-        validateNumber(input);
+        validateNumberCheck(input);
         return playerNumber;
     }
 
 
-    private static void validateNumber(final String input) {
-        if (input.length()!=3) {
+    private static void validateNumberCheck(final String input) {
+        if (input.length()!=INPUT_LENGTH_BOUND) {
             throw new IllegalArgumentException("numbers cannot be empty.");
         }
     }
