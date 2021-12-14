@@ -55,7 +55,7 @@ public class Application {
             List<Integer> playerNumber = new ArrayList<>(3);
             playerNumber = playerInputNumber();
 
-            if(checkNum(randomNumber, playerNumber)==true){
+            if(checkNumber(randomNumber, playerNumber)==true){
                 break;
             }
             else {
@@ -105,27 +105,37 @@ public class Application {
         }
     }
 
-    public static Boolean checkNum(List<Integer> randomNumber, List<Integer> playerNumber){
+    public static Boolean checkNumber(List<Integer> randomNumber, List<Integer> playerNumber){
         int ball =0;
         int strike =0;
-        int[] DAT = new int[10]; //direct address table
-        Arrays.fill(DAT,-1);
-
-        //컴퓨터의 숫자와 index 번호를 저장한다
-        for(int i=0; i<3; i++){
-            DAT[randomNumber.get(i)] = i;
-        }
+        int[] randomNumberIndex = new int[10];
+        randomNumberIndex = initRandomNumberIndex(randomNumber);
 
         for(int i=0; i<3; i++){
-            if(DAT[playerNumber.get(i)]==i) strike++;
-            else if(DAT[playerNumber.get(i)]!=-1) ball++;
+            if(randomNumberIndex[playerNumber.get(i)]==i) strike++;
+            else if(randomNumberIndex[playerNumber.get(i)]!=-1) ball++;
         }
 
         //결과 출력
         printResult(ball, strike);
 
-        if(strike==3) return true;
-        else return false;
+        if(strike==3){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
+    public static int[] initRandomNumberIndex(List<Integer> randomNumber){
+        int[] randomNumberIndex = new int[10]; //direct address table
+        Arrays.fill(randomNumberIndex,-1);
+
+        //컴퓨터의 숫자와 index 번호를 저장한다
+        for(int i=0; i<3; i++){
+            randomNumberIndex[randomNumber.get(i)] = i;
+        }
+        return randomNumberIndex;
     }
 
 
