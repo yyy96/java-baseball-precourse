@@ -8,6 +8,8 @@ import java.util.List;
 
 public class Application {
     public static final int INPUT_LENGTH_BOUND =3;
+    public static final int GAME_CONTINUE = 1;
+    public static final int GAME_FINISH = 2;
 
     public static void main(String[] args) {
 
@@ -17,7 +19,7 @@ public class Application {
             randomNumber = computerPickNumber();
 
             //2. 플레이어가 숫자게임을 시작한다.
-            if(playGame(randomNumber)==1){
+            if(playGame(randomNumber)==GAME_CONTINUE){
                 continue;
             }
             else{
@@ -61,13 +63,12 @@ public class Application {
             }
         }
 
-        //종료 확인
-        System.out.println("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
-        System.out.println("게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요");
-        String gameOver = Console.readLine();
-        int gameOverNum = Character.getNumericValue(gameOver.charAt(0));
-        if(gameOverNum==1) return 1;
-        else return 2;
+        if(gameOver() == GAME_CONTINUE){
+            return GAME_CONTINUE;
+        }
+        else{
+            return GAME_FINISH;
+        }
     }
 
     public static List<Integer> playerInputNumber(){
@@ -88,6 +89,19 @@ public class Application {
     private static void validateNumberCheck(final String input) {
         if (input.length()!=INPUT_LENGTH_BOUND) {
             throw new IllegalArgumentException("numbers cannot be empty.");
+        }
+    }
+
+    public static int gameOver(){
+        System.out.println("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
+        System.out.println("게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요");
+        String gameOver = Console.readLine();
+        int gameOverNum = Character.getNumericValue(gameOver.charAt(0));
+        if(gameOverNum==GAME_CONTINUE){
+            return GAME_CONTINUE;
+        }
+        else{
+            return GAME_FINISH;
         }
     }
 
