@@ -49,22 +49,15 @@ public class Application {
     public static int playGame(List<Integer> randomNumber){
         //게임 진행
         while(true) {
-            //1. 플레이어가 숫자를 입력한다
-            String input;
-            System.out.print("숫자를 입력해주세요 : ");
-            input = Console.readLine();
             List<Integer> playerNumber = new ArrayList<>(3);
-            for (int i = 0; i < 3; i++) {
-                int num = Character.getNumericValue(input.charAt(i));
-                playerNumber.add(num);
+            playerNumber = playerInputNumber();
+
+            if(checkNum(randomNumber, playerNumber)==true){
+                break;
             }
-
-            //+ 사용자가 잘못된 값을 입력할 경우 예외 발생 후 종료
-            validateNumber(input);
-
-            // 2. 숫자를 확인한다 (정답이면 종료)
-            if(checkNum(randomNumber, playerNumber)==true) break;
-            else continue;
+            else {
+                continue;
+            }
         }
 
         //종료 확인
@@ -75,6 +68,21 @@ public class Application {
         if(gameOverNum==1) return 1;
         else return 2;
     }
+
+    public static List<Integer> playerInputNumber(){
+        List<Integer> playerNumber = new ArrayList<>(3);
+        String input;
+        System.out.print("숫자를 입력해주세요 : ");
+        input = Console.readLine();
+        for (int i = 0; i < 3; i++) {
+            int num = Character.getNumericValue(input.charAt(i));
+            playerNumber.add(num);
+        }
+
+        validateNumber(input);
+        return playerNumber;
+    }
+
 
     private static void validateNumber(final String input) {
         if (input.length()!=3) {
