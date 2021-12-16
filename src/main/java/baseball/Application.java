@@ -15,6 +15,8 @@ public class Application {
     public static final int USED_NUMBER = 1;
     public static final int ALL_STRIKE = 3;
     public static final int NO_USED_CARD = -1;
+    public static int ball = 0;
+    public static int strike = 0;
 
     public static void main(String[] args) {
         Application numberBaseballGame = new Application();
@@ -103,25 +105,31 @@ public class Application {
     }
 
     public Boolean checkPlayerNumber(List<Integer> randomNumber, List<Integer> playerNumber) {
-        int ball = 0;
-        int strike = 0;
-        int[] randomNumberIndex = new int[10];
-        randomNumberIndex = initRandomNumberIndex(randomNumber);
+        int[] randomNumberIndex = initRandomNumberIndex(randomNumber);
 
-        for (int i = 0; i < CARD_COUNT; i++) {
-            if (randomNumberIndex[playerNumber.get(i)] == i) {
-                strike++;
-            } else if (randomNumberIndex[playerNumber.get(i)] != NO_USED_CARD) {
-                ball++;
-            }
-        }
-
+        initBallStrikeCount();
+        checkBallStrike(randomNumberIndex, playerNumber);
         printResult(ball, strike);
 
         if (strike == ALL_STRIKE) {
             return true;
         } else {
             return false;
+        }
+    }
+
+    public void initBallStrikeCount(){
+        ball = 0;
+        strike = 0;
+    }
+
+    public void checkBallStrike(int[] randomNumberIndex, List<Integer> playerNumber){
+        for (int i = 0; i < CARD_COUNT; i++) {
+            if (randomNumberIndex[playerNumber.get(i)] == i) {
+                strike++;
+            } else if (randomNumberIndex[playerNumber.get(i)] != NO_USED_CARD) {
+                ball++;
+            }
         }
     }
 
