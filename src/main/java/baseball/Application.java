@@ -17,26 +17,26 @@ public class Application {
     public static final int NO_USED_CARD = -1;
 
     public static void main(String[] args) {
-
+        Application numberBaseballGame = new Application();
         while (true) {
-            List<Integer> randomNumber = computerPickNumber();
+            List<Integer> randomNumber = numberBaseballGame.computerPickNumber(); //스스로를 호출해서 객체생성
 
-            if (playGame(randomNumber) == GAME_CONTINUE) {
+            if (numberBaseballGame.playGame(randomNumber) == GAME_CONTINUE) {
                 continue;
             } else {
                 break;
             }
         }
-
     }
 
-    public static List<Integer> computerPickNumber() {
+    public List<Integer> computerPickNumber() {
         int cardCount = 0;
         int[] checkUsedUniqueNumber = new int[10];
         Arrays.fill(checkUsedUniqueNumber, 0);
         List<Integer> computerRandomNumber = new ArrayList<>(CARD_COUNT);
 
         while(true) {
+            if (cardCount == CARD_COUNT) break;
             int number = Randoms.pickNumberInRange(1, 9);
             if (checkUsedUniqueNumber[number] == USED_NUMBER) {
                 continue;
@@ -44,14 +44,13 @@ public class Application {
             checkUsedUniqueNumber[number] = USED_NUMBER;
             computerRandomNumber.add(number);
             cardCount++;
-            if (cardCount == CARD_COUNT) break;
         }
 
         return computerRandomNumber;
     }
 
 
-    public static int playGame(List<Integer> randomNumber) {
+    public int playGame(List<Integer> randomNumber) {
         //게임 진행
         while (true) {
             List<Integer> playerNumber = playerInputNumber();
@@ -70,7 +69,7 @@ public class Application {
         }
     }
 
-    public static List<Integer> playerInputNumber() {
+    public List<Integer> playerInputNumber() {
         List<Integer> playerNumber = new ArrayList<>(CARD_COUNT);
         String input;
         System.out.print("숫자를 입력해주세요 : ");
@@ -85,13 +84,13 @@ public class Application {
     }
 
 
-    private static void validateNumberCheck(final String input) {
+    private void validateNumberCheck(final String input) {
         if (input.length() != INPUT_LENGTH_BOUND) {
             throw new IllegalArgumentException("numbers cannot be empty.");
         }
     }
 
-    public static int gameOver() {
+    public int gameOver() {
         System.out.println("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
         System.out.println("게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요");
         String gameOverInput = Console.readLine();
@@ -103,7 +102,7 @@ public class Application {
         }
     }
 
-    public static Boolean checkPlayerNumber(List<Integer> randomNumber, List<Integer> playerNumber) {
+    public Boolean checkPlayerNumber(List<Integer> randomNumber, List<Integer> playerNumber) {
         int ball = 0;
         int strike = 0;
         int[] randomNumberIndex = new int[10];
@@ -126,7 +125,7 @@ public class Application {
         }
     }
 
-    public static int[] initRandomNumberIndex(List<Integer> randomNumber) {
+    public int[] initRandomNumberIndex(List<Integer> randomNumber) {
         int[] randomNumberIndex = new int[10]; //direct address table
         Arrays.fill(randomNumberIndex, NO_USED_CARD);
 
@@ -138,7 +137,7 @@ public class Application {
     }
 
 
-    public static void printResult(int ball, int strike) {
+    public void printResult(int ball, int strike) {
         if (ball != 0 && strike != 0)
             System.out.println(ball + "볼 " + strike + "스트라이크");
         else if (ball != 0 && strike == 0)
