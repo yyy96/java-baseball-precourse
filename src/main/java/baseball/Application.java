@@ -21,9 +21,9 @@ public class Application {
     public static void main(String[] args) {
         Application numberBaseballGame = new Application();
         while (true) {
-            List<Integer> randomNumber = numberBaseballGame.computerPickNumber(); //스스로를 호출해서 객체생성
-
-            if (numberBaseballGame.playGame(randomNumber) == GAME_CONTINUE) {
+            List<Integer> randomNumber = numberBaseballGame.computerPickNumber();
+            numberBaseballGame.playGame(randomNumber);
+            if (numberBaseballGame.gameOver() == GAME_CONTINUE) {
                 continue;
             } else {
                 break;
@@ -52,22 +52,14 @@ public class Application {
     }
 
 
-    public int playGame(List<Integer> randomNumber) {
-        //게임 진행
+    public void playGame(List<Integer> randomNumber) {
         while (true) {
             List<Integer> playerNumber = playerInputNumber();
-
             if (checkPlayerNumber(randomNumber, playerNumber) == true) {
                 break;
             } else {
                 continue;
             }
-        }
-
-        if (gameOver() == GAME_CONTINUE) {
-            return GAME_CONTINUE;
-        } else {
-            return GAME_FINISH;
         }
     }
 
@@ -91,6 +83,15 @@ public class Application {
             throw new IllegalArgumentException("numbers cannot be empty.");
         }
     }
+
+    /*
+    public int checkGameOver(){
+        if (gameOver() == GAME_CONTINUE) {
+            return GAME_CONTINUE;
+        } else {
+            return GAME_FINISH;
+        }
+    }*/
 
     public int gameOver() {
         System.out.println("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
